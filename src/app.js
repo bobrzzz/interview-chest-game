@@ -6,7 +6,8 @@ import { Bonus } from './bonus';
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application({
     width: 400,
-    height: 300
+    height: 300,
+    transparent: true
 });
 document.body.appendChild(app.view);
 
@@ -16,7 +17,7 @@ app.loader
 
 
 const totalChestAmount = 6;
-let opennedChestAmount = 0;
+let closedChestIndexes = [];
 let chests = [];
 let startButton;
 let bonusView;
@@ -40,9 +41,10 @@ function createChests(chestAmount, spriteSheet) {
         const button = new Chest('Chest ' + (i + 1), spriteSheet);
         button.x = 50 + (200 * (i % 2));
         button.y = 30 + (Math.floor(i / 2) * 70); 
-        button.on('pointerdown', openChest(button));
+        button.on('pointerdown', openChest(i));
 
         chests.push(button);
+        closedChestIndexes.push(i);
         app.stage.addChild(button);
     }
 }
@@ -70,11 +72,17 @@ function startGame() {
     }
 }
 
-function openChest(chest) {
+function openChest(index) {
     return function() {
-
-        opennedChestAmount++;
+        const chest = chests[index];
         const winValue = processWin();
+        const openedIndex = closedChestIndexes.indexOf(index);
+        closedChestIndexes.splice(openedIndex, 1);
+        console.log(closedChestIndexes);
+        for (const chest of chests) {
+            chest.changeState(false);
+        }
+
         chest.showWin(winValue)
             .then(() => {
                 if(isBonusWin()) { 
@@ -82,19 +90,30 @@ function openChest(chest) {
                 }
             })
             .then(() => {
-                if(opennedChestAmount === totalChestAmount) {
+                if(closedChestIndexes.length === 0) {
                     restart();
+                    return;
                 }
+
+                enableClosedChests();
             })
     }
 }
 
+function enableClosedChests() {
+    for(const i of closedChestIndexes) {
+        chests[i].changeState(true);
+    }
+}
+
 function restart() {
-    opennedChestAmount = 0;
+    let i = 0;
     for (const chest of chests) {
         chest.changeState(false);
         chest.reset();
+        closedChestIndexes.push(i++);
     }
+    console.log(closedChestIndexes);
 
     startButton.changeState(true);
 }
@@ -120,7 +139,6 @@ function isWin() {
 }
 
 function isBonusWin() {
-    return true;
     return getRandomInteger(totalChestAmount) === totalChestAmount;
 }
 
