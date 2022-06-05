@@ -8,12 +8,12 @@ class Button extends PIXI.Container {
         background.drawRect(0, 0, 100, 50);
         background.endFill();
 
-        const text = new PIXI.Text(buttonText, {fill: 'red'});
-        text.anchor.set(0.5);
-        text.x = 100 / 2;
-        text.y = 50 / 2;
+        this.text = new PIXI.Text(buttonText, {fill: 'red'});
+        this.text.anchor.set(0.5);
+        this.text.x = 100 / 2;
+        this.text.y = 50 / 2;
         this.addChild(background);
-        this.addChild(text);
+        this.addChild(this.text);
 
         this.alpha = 0.5;
 
@@ -29,7 +29,6 @@ class Button extends PIXI.Container {
     pointerdownHandler() {
         this.changeState(false);
     }
-
 }
 
 export {

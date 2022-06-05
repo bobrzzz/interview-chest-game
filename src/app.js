@@ -25,7 +25,7 @@ function buildButtons() {
         button.y = 30 + (Math.floor(i / 2) * 70); 
         console.log('Button', button.x, button.y)
 
-        button.on('pointerdown', openChest);
+        button.on('pointerdown', openChest(button));
 
         chests.push(button);
         app.stage.addChild(button);
@@ -52,10 +52,15 @@ function startGame() {
     // startButton.changeState(false);
 }
 
-function openChest() {
-    opennedChestAmount++;
-    if(opennedChestAmount === totalChestAmount) {
-        restart();
+function openChest(button) {
+    return function() {
+
+        opennedChestAmount++;
+        const winValue = processWin();
+        button.changeText(winValue);
+        if(opennedChestAmount === totalChestAmount) {
+            restart();
+        }
     }
 }
 
@@ -67,6 +72,35 @@ function restart() {
 
     startButton.changeState(true);
 }
+
+function processWin() {
+    if(!isWin()) {
+        return 0;
+    }
+    let winValue = getRandomInteger(100);
+
+    if(isBonusWin()) {
+        console.log('Bonus win')
+        winValue *= 4;
+    }
+
+    console.log(winValue);
+    return winValue;
+
+}
+
+function isWin() {
+    return getRandomInteger(2) === 2;
+}
+
+function isBonusWin() {
+    return getRandomInteger(totalChestAmount) === totalChestAmount;
+}
+
+function getRandomInteger(max) {
+    return Math.floor(Math.random() * max) + 1;
+}
+
 
 
 
