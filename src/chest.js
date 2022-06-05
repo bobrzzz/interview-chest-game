@@ -11,6 +11,7 @@ class Chest extends Button {
         this.animation = new PIXI.AnimatedSprite(this.spriteSheet.animations["ChestOption1"]);
         this.animation.scale.set(3);
         this.animation.loop = false;
+        this.animation.animationSpeed = 0.5;
         this.addChild(this.animation);
         this.createText();
     }
@@ -34,7 +35,7 @@ class Chest extends Button {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve();
-            }, 500);
+            }, 1000);
         });
     }
 
