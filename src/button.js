@@ -1,23 +1,33 @@
 import * as PIXI from 'pixi.js';
 
 class Button extends PIXI.Container {
-    constructor(buttonText, clickCallback) {
+    constructor(buttonText, spriteSheet, clickCallback) {
         super();
+        this.alpha = 0.5;
+        this.text = buttonText;
+        this.spriteSheet = spriteSheet;
+
+        this.createView();        
+        this.on('pointerdown', this.pointerdownHandler);
+    }
+
+    createView() {
         const background = new PIXI.Graphics();
         background.beginFill(0xffffff);
         background.drawRect(0, 0, 100, 50);
         background.endFill();
 
-        this.text = new PIXI.Text(buttonText, {fill: 'red'});
-        this.text.anchor.set(0.5);
-        this.text.x = 100 / 2;
-        this.text.y = 50 / 2;
+        
         this.addChild(background);
-        this.addChild(this.text);
-
-        this.alpha = 0.5;
-
-        this.on('pointerdown', this.pointerdownHandler);
+        this.createText();
+    }
+    
+    createText() {
+        this.label = new PIXI.Text(this.text, {fill: 'red'});
+        this.label.anchor.set(0.5);
+        this.label.x = this.width / 2;
+        this.label.y = this.height / 2;
+        this.addChild(this.label);
     }
 
     changeState(isActive) {

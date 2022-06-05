@@ -1,0 +1,96 @@
+{"frames": {
+
+"ChestOption1_01.png":
+{
+	"frame": {"x":21,"y":21,"w":16,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":15},
+	"sourceSize": {"w":16,"h":17}
+},
+"ChestOption1_02.png":
+{
+	"frame": {"x":2,"y":42,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":17}
+},
+"ChestOption1_03.png":
+{
+	"frame": {"x":2,"y":2,"w":16,"h":17},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":17},
+	"sourceSize": {"w":16,"h":17}
+},
+"ChestOption1_04.png":
+{
+	"frame": {"x":2,"y":22,"w":16,"h":17},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":17},
+	"sourceSize": {"w":16,"h":17}
+},
+"goldenCoin_01.png":
+{
+	"frame": {"x":21,"y":2,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"goldenCoin_02.png":
+{
+	"frame": {"x":40,"y":2,"w":12,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":12,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"goldenCoin_03.png":
+{
+	"frame": {"x":21,"y":39,"w":10,"h":16},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"goldenCoin_04.png":
+{
+	"frame": {"x":21,"y":52,"w":6,"h":16},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":0,"w":6,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"goldenCoin_05.png":
+{
+	"frame": {"x":40,"y":40,"w":10,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"goldenCoin_06.png":
+{
+	"frame": {"x":40,"y":21,"w":12,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":12,"h":16},
+	"sourceSize": {"w":16,"h":16}
+}},
+"animations": {
+	"ChestOption1": ["ChestOption1_01.png","ChestOption1_02.png","ChestOption1_03.png","ChestOption1_04.png"],
+	"goldenCoin": ["goldenCoin_01.png","goldenCoin_02.png","goldenCoin_03.png","goldenCoin_04.png","goldenCoin_05.png","goldenCoin_06.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "interview.png",
+	"format": "RGBA8888",
+	"size": {"w":54,"h":60},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ba08c35fece62a27ae4e513dca2c875d:fe6640a29eafdc263322d2c9a768cb9f:cf685f86c642573a9b755e13897d7791$"
+}
+}

@@ -1,12 +1,18 @@
 import * as PIXI from 'pixi.js';
 import { Button } from "./button";
+import { Chest } from "./chest";
 import { lol } from "./module";
 
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application({
     width: 400,
     height: 300
 });
 document.body.appendChild(app.view);
+
+app.loader
+    .add('interview.json')
+    .load(init);
 
 
 const totalChestAmount = 6;
@@ -14,13 +20,17 @@ let opennedChestAmount = 0;
 let chests = [];
 let startButton;
 
+let spriteSheet;
+
 function init() {
+    spriteSheet = app.loader.resources['interview.json'].spritesheet;
+    console.log(spriteSheet);
     buildButtons();
 }
 
 function buildButtons() {
     for(let i = 0; i < totalChestAmount; i++) {
-        const button = new Button('Chest ' + i);
+        const button = new Chest('Chest ' + (i + 1), spriteSheet);
         button.x = 50 + (200 * (i % 2));
         button.y = 30 + (Math.floor(i / 2) * 70); 
         console.log('Button', button.x, button.y)
@@ -42,8 +52,6 @@ function buildButtons() {
     app.stage.addChild(startButton);
 }
 
-init();
-
 function startGame() {
     for (const chest of chests) {
         chest.changeState(true);
@@ -52,15 +60,17 @@ function startGame() {
     // startButton.changeState(false);
 }
 
-function openChest(button) {
+function openChest(chest) {
     return function() {
 
         opennedChestAmount++;
         const winValue = processWin();
-        button.changeText(winValue);
-        if(opennedChestAmount === totalChestAmount) {
-            restart();
-        }
+        chest.showWin(winValue)
+            .then(() => {
+                if(opennedChestAmount === totalChestAmount) {
+                    restart();
+                }
+            })
     }
 }
 
@@ -68,6 +78,7 @@ function restart() {
     opennedChestAmount = 0;
     for (const chest of chests) {
         chest.changeState(false);
+        chest.reset();
     }
 
     startButton.changeState(true);
