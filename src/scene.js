@@ -9,7 +9,7 @@ class Scene extends PIXI.Container {
         super();
         this.chests = [];
 
-        this.createElements(totalChestAmount, spriteSheet, callbacks)
+        this.createElements(totalChestAmount, spriteSheet, callbacks);
     }
 
     createElements(totalChestAmount, spriteSheet, callbacks) {
@@ -33,7 +33,6 @@ class Scene extends PIXI.Container {
         background.alpha = 0.5;
     
         this.addChild(background);
-    
     
         for(let i = 0; i < chestAmount; i++) {
             const button = new Chest(spriteSheet, filter);
