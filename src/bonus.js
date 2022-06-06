@@ -14,7 +14,7 @@ class Bonus extends PIXI.Container {
     createView(spriteSheet) {
         this.background = new PIXI.NineSlicePlane(spriteSheet.textures['panel.png']);
         this.background.width = 105;
-        this.background.height = 95;
+        this.background.height = 100;
         this.background.scale.set(3);
         this.addChild(this.background);
 

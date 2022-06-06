@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 class Button extends PIXI.Container {
-    constructor(buttonText, spriteSheet, clickCallback) {
+    constructor() {
         super();       
         this.on('pointerdown', this.pointerdownHandler);
     }
@@ -28,7 +28,7 @@ class Button extends PIXI.Container {
 }
 
 class StartButton extends Button {
-    constructor(buttonText, spriteSheet, clickCallback) {
+    constructor(buttonText, spriteSheet) {
         super();
         
         this.text = buttonText;

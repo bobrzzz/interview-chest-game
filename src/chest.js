@@ -51,6 +51,7 @@ class Chest extends Button {
     }
 
     showWin(newWinValue) {
+        console.log(newWinValue)
         this.changeText(newWinValue); 
         return new Promise((resolve, reject) => {
             setTimeout(() => {

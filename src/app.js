@@ -6,7 +6,7 @@ import { Bonus } from './bonus';
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application({
     width: 400,
-    height: 300,
+    height: 400,
     transparent: true
 });
 document.body.appendChild(app.view);
@@ -47,7 +47,7 @@ function createFilter() {
 function createChests(chestAmount, spriteSheet) {
     const background = new PIXI.Graphics();
     background.beginFill(0xffffff);
-    background.drawRoundedRect(50, 25, 300, 200, 10);
+    background.drawRoundedRect(50, 25, 300, 215, 10);
     background.endFill();
     background.alpha = 0.5;
 
@@ -57,7 +57,7 @@ function createChests(chestAmount, spriteSheet) {
     for(let i = 0; i < chestAmount; i++) {
         const button = new Chest(spriteSheet, filter);
         button.x = 95 + (160 * (i % 2));
-        button.y = 25 + (Math.floor(i / 2) * 70); 
+        button.y = 35 + (Math.floor(i / 2) * 70); 
         button.on('pointerdown', openChest(i));
 
         chests.push(button);
@@ -69,7 +69,7 @@ function createChests(chestAmount, spriteSheet) {
 function createStartButton(spriteSheet) {
     startButton = new StartButton('Start', spriteSheet);
     startButton.x = 145;
-    startButton.y = 240;
+    startButton.y = 255;
     
     startButton.changeState(true);
     startButton.on('pointerdown', startGame);
@@ -94,7 +94,7 @@ function openChest(index) {
         const winValue = processWin();
         const openedIndex = closedChestIndexes.indexOf(index);
         closedChestIndexes.splice(openedIndex, 1);
-        console.log(closedChestIndexes);
+        
         for (const chest of chests) {
             chest.changeState(false);
         }
@@ -139,12 +139,6 @@ function processWin() {
         return 0;
     }
     let winValue = getRandomInteger(100);
-
-    // if(isBonusWin()) {
-    //     console.log('Bonus win')
-    //     winValue *= 4;
-    // }
-
     console.log(winValue);
     return winValue;
 
@@ -155,7 +149,6 @@ function isWin() {
 }
 
 function isBonusWin() {
-    return true;
     return getRandomInteger(totalChestAmount) === totalChestAmount;
 }
 
