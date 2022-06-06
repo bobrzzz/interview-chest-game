@@ -1,7 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { StartButton } from "./button";
-import { Chest } from "./chest";
-import { Bonus } from './bonus';
+import { Scene } from "./scene";
  
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application({
@@ -21,66 +19,25 @@ let closedChestIndexes = [];
 let chests = [];
 let startButton;
 let bonusView;
-let filter;
-
-let spriteSheet;
 
 function init() {
-    spriteSheet = app.loader.resources['interview.json'].spritesheet;
-    console.log(spriteSheet);
-    createElements();
+    const spriteSheet = app.loader.resources['interview.json'].spritesheet;
+    const callbacks = {
+        chest: openChest,
+        startButton: startGame
+    };
+
+    const scene = new Scene(totalChestAmount, spriteSheet, callbacks);
+    app.stage.addChild(scene);
+
+    chests = scene.getChests();
+    startButton = scene.getStartButton();
+    bonusView = scene.getBonusView();
+    resetClosedIndexes();
+    console.log(closedChestIndexes)
 }
 
-function createElements() {
-    createFilter();
-    createChests(totalChestAmount, spriteSheet);
-    createStartButton(spriteSheet);
-    createBonusView();
-}
 
-function createFilter() {
-    filter = new PIXI.filters.ColorMatrixFilter();
-    filter.desaturate();
-
-}
-
-function createChests(chestAmount, spriteSheet) {
-    const background = new PIXI.Graphics();
-    background.beginFill(0xffffff);
-    background.drawRoundedRect(50, 25, 300, 215, 10);
-    background.endFill();
-    background.alpha = 0.5;
-
-    app.stage.addChild(background);
-
-
-    for(let i = 0; i < chestAmount; i++) {
-        const button = new Chest(spriteSheet, filter);
-        button.x = 95 + (160 * (i % 2));
-        button.y = 35 + (Math.floor(i / 2) * 70); 
-        button.on('pointerdown', openChest(i));
-
-        chests.push(button);
-        closedChestIndexes.push(i);
-        app.stage.addChild(button);
-    }
-}
-
-function createStartButton(spriteSheet) {
-    startButton = new StartButton('Start', spriteSheet);
-    startButton.x = 145;
-    startButton.y = 255;
-    
-    startButton.changeState(true);
-    startButton.on('pointerdown', startGame);
-
-    app.stage.addChild(startButton);
-}
-
-function createBonusView() {
-    bonusView = new Bonus(spriteSheet);
-    app.stage.addChild(bonusView);
-}
 
 function startGame() {
     for (const chest of chests) {
@@ -94,6 +51,7 @@ function openChest(index) {
         const winValue = processWin();
         const openedIndex = closedChestIndexes.indexOf(index);
         closedChestIndexes.splice(openedIndex, 1);
+        console.log('index', index);
         
         for (const chest of chests) {
             chest.changeState(false);
@@ -102,7 +60,9 @@ function openChest(index) {
         chest.showWin(winValue)
             .then(() => {
                 if(isBonusWin()) { 
-                    return bonusView.show(500);
+                    const bonusWin = 500;
+                    chest.changeText(winValue + bonusWin);
+                    return bonusView.show(bonusWin);
                 }
             })
             .then(() => {
@@ -123,15 +83,21 @@ function enableClosedChests() {
 }
 
 function restart() {
-    let i = 0;
     for (const chest of chests) {
         chest.changeState(false);
         chest.reset();
-        closedChestIndexes.push(i++);
     }
+    resetClosedIndexes();
     console.log(closedChestIndexes);
 
     startButton.changeState(true);
+}
+
+function resetClosedIndexes() {
+    closedChestIndexes = [];
+    for(let i = 0; i < chests.length; i++) {
+        closedChestIndexes.push(i);
+    }
 }
 
 function processWin() {
@@ -139,7 +105,6 @@ function processWin() {
         return 0;
     }
     let winValue = getRandomInteger(100);
-    console.log(winValue);
     return winValue;
 
 }
