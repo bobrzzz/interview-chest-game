@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Controller } from "./controller"; 
 
+
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application({
     width: 400,

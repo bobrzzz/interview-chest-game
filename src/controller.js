@@ -24,8 +24,6 @@ class Controller {
         this.resetClosedIndexes();
     }
     
-    
-    
     startGame() {
         for (const chest of this.chests) {
             chest.changeState(true);

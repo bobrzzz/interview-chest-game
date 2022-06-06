@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+
 class Button extends PIXI.Container {
     constructor() {
         super();       
@@ -54,8 +55,6 @@ class StartButton extends Button {
         this.addChild(this.label);
     }
 }
-
-
 
 export {
     Button,

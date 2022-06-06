@@ -59,7 +59,6 @@ class Chest extends Button {
             }, 1000);
         });
     }
-
 }
 
 export {

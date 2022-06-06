@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+
 class Bonus extends PIXI.Container {
     constructor(spriteSheet) {
         super();
@@ -25,7 +26,6 @@ class Bonus extends PIXI.Container {
         this.chestAnimation.x = 100;
         this.chestAnimation.y = 120;
         this.addChild(this.chestAnimation);
-
 
         this.coinAnimation = new PIXI.AnimatedSprite(spriteSheet.animations['sparkleCoin']);
         this.coinAnimation.scale.set(3);
