@@ -17,6 +17,7 @@ class Scene extends PIXI.Container {
         this.createChests(totalChestAmount, spriteSheet, filter, callbacks.chest);
         this.createStartButton(spriteSheet, callbacks.startButton);
         this.createBonusView(spriteSheet);
+        this.createTitle();
     }
     
     createFilter() {
@@ -24,7 +25,7 @@ class Scene extends PIXI.Container {
         filter.desaturate();
         return filter;
     }
-    
+
     createChests(chestAmount, spriteSheet, filter, callback) {
         const background = new PIXI.Graphics();
         background.beginFill(0xffffff);
@@ -59,6 +60,19 @@ class Scene extends PIXI.Container {
     createBonusView(spriteSheet) {
         this.bonusView = new Bonus(spriteSheet);
         this.addChild(this.bonusView);
+    }
+
+    createTitle() {
+        const style = new PIXI.TextStyle({
+            fill: 'yellow',
+            stroke: '#000000',
+            strokeThickness: 5,
+        });
+        this.title = new PIXI.Text('Interview Chest Game', style);
+        this.title.anchor.set(0.5, 0);
+        this.title.x = 400 / 2;
+        this.title.y = 0;
+        this.addChild(this.title);
     }
 
     getChests() {
