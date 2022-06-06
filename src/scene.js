@@ -16,8 +16,8 @@ class Scene extends PIXI.Container {
         const filter = this.createFilter();
         this.createChests(totalChestAmount, spriteSheet, filter, callbacks.chest);
         this.createStartButton(spriteSheet, callbacks.startButton);
-        this.createBonusView(spriteSheet);
         this.createTitle();
+        this.createBonusView(spriteSheet);
     }
     
     createFilter() {
@@ -29,7 +29,7 @@ class Scene extends PIXI.Container {
     createChests(chestAmount, spriteSheet, filter, callback) {
         const background = new PIXI.Graphics();
         background.beginFill(0xffffff);
-        background.drawRoundedRect(50, 25, 300, 215, 10);
+        background.drawRoundedRect(50, 55, 300, 215, 10);
         background.endFill();
         background.alpha = 0.5;
     
@@ -38,7 +38,7 @@ class Scene extends PIXI.Container {
         for(let i = 0; i < chestAmount; i++) {
             const button = new Chest(spriteSheet, filter);
             button.x = 95 + (160 * (i % 2));
-            button.y = 35 + (Math.floor(i / 2) * 70); 
+            button.y = 65 + (Math.floor(i / 2) * 70); 
             button.on('pointerdown', callback(i));
     
             this.chests.push(button);
@@ -49,7 +49,7 @@ class Scene extends PIXI.Container {
     createStartButton(spriteSheet, callback) {
         this.startButton = new StartButton('Start', spriteSheet);
         this.startButton.x = 145;
-        this.startButton.y = 255;
+        this.startButton.y = 285;
         
         this.startButton.changeState(true);
         this.startButton.on('pointerdown', callback);
@@ -64,14 +64,14 @@ class Scene extends PIXI.Container {
 
     createTitle() {
         const style = new PIXI.TextStyle({
-            fill: 'yellow',
+            fill: 'yellow',//,
             stroke: '#000000',
             strokeThickness: 5,
         });
         this.title = new PIXI.Text('Interview Chest Game', style);
         this.title.anchor.set(0.5, 0);
         this.title.x = 400 / 2;
-        this.title.y = 0;
+        this.title.y = 20;
         this.addChild(this.title);
     }
 

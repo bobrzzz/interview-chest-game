@@ -48,10 +48,15 @@ class StartButton extends Button {
     }
     
     createText() {
-        this.label = new PIXI.Text(this.text, {fill: 'white'});
+        const style = new PIXI.TextStyle({
+            fill: 'white',//,
+            stroke: '#000000',
+            strokeThickness: 5,
+        });
+        this.label = new PIXI.Text(this.text, style);
         this.label.anchor.set(0.5);
         this.label.x = this.width / 2;
-        this.label.y = this.height / 2;
+        this.label.y = this.height / 2 - 2;
         this.addChild(this.label);
     }
 }
