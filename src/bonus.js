@@ -5,17 +5,25 @@ class Bonus extends PIXI.Container {
         super();
         this.bonusValue = 0;
         this.createView(spriteSheet);
-        this.x = 150;
-        this.y = 150;
-        this.alpha = 0
+        this.x = 40;
+        this.y = 20;
+        this.alpha = 0;
         window.bonus = this;
     }
 
     createView(spriteSheet) {
+        this.background = new PIXI.NineSlicePlane(spriteSheet.textures['panel.png']);
+        this.background.width = 105;
+        this.background.height = 95;
+        this.background.scale.set(3);
+        this.addChild(this.background);
+
         this.chestAnimation = new PIXI.AnimatedSprite(spriteSheet.animations['bonusChest']);
         this.chestAnimation.scale.set(3);
         this.chestAnimation.loop = false;
         this.chestAnimation.animationSpeed = 0.5;
+        this.chestAnimation.x = 100;
+        this.chestAnimation.y = 120;
         this.addChild(this.chestAnimation);
 
 
@@ -23,13 +31,19 @@ class Bonus extends PIXI.Container {
         this.coinAnimation.scale.set(3);
         this.coinAnimation.alpha = 0;
         this.coinAnimation.animationSpeed = 0.25;
-        this.coinAnimation.y = -10;
+        this.coinAnimation.x = 105;
+        this.coinAnimation.y = 105;
         this.addChild(this.coinAnimation);
 
-        this.label = new PIXI.Text(this.text, {fill: 'red'});
+        const style = new PIXI.TextStyle({
+            fill: ['#ffffff', 'gold'],
+            stroke: '#000000',
+            strokeThickness: 4,
+        });
+        this.label = new PIXI.Text('Bonus win:', style);
         this.label.anchor.set(0.5);
-        this.label.x = this.width / 2 - 20;
-        this.label.y = -10;
+        this.label.x = this.width / 2;
+        this.label.y = 80;
         this.label.alpha = 0;
         this.addChild(this.label);
     }

@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { Button } from "./button";
+import { StartButton } from "./button";
 import { Chest } from "./chest";
 import { Bonus } from './bonus';
  
@@ -21,6 +21,7 @@ let closedChestIndexes = [];
 let chests = [];
 let startButton;
 let bonusView;
+let filter;
 
 let spriteSheet;
 
@@ -31,16 +32,32 @@ function init() {
 }
 
 function createElements() {
+    createFilter();
     createChests(totalChestAmount, spriteSheet);
-    createStartButton();
+    createStartButton(spriteSheet);
     createBonusView();
 }
 
+function createFilter() {
+    filter = new PIXI.filters.ColorMatrixFilter();
+    filter.desaturate();
+
+}
+
 function createChests(chestAmount, spriteSheet) {
+    const background = new PIXI.Graphics();
+    background.beginFill(0xffffff);
+    background.drawRoundedRect(50, 25, 300, 200, 10);
+    background.endFill();
+    background.alpha = 0.5;
+
+    app.stage.addChild(background);
+
+
     for(let i = 0; i < chestAmount; i++) {
-        const button = new Chest('Chest ' + (i + 1), spriteSheet);
-        button.x = 50 + (200 * (i % 2));
-        button.y = 30 + (Math.floor(i / 2) * 70); 
+        const button = new Chest(spriteSheet, filter);
+        button.x = 95 + (160 * (i % 2));
+        button.y = 25 + (Math.floor(i / 2) * 70); 
         button.on('pointerdown', openChest(i));
 
         chests.push(button);
@@ -49,14 +66,13 @@ function createChests(chestAmount, spriteSheet) {
     }
 }
 
-function createStartButton() {
-    startButton = new Button('Start');
-    startButton.x = 150;
-    startButton.y = 230;
+function createStartButton(spriteSheet) {
+    startButton = new StartButton('Start', spriteSheet);
+    startButton.x = 145;
+    startButton.y = 240;
     
     startButton.changeState(true);
     startButton.on('pointerdown', startGame);
-
 
     app.stage.addChild(startButton);
 }
@@ -139,6 +155,7 @@ function isWin() {
 }
 
 function isBonusWin() {
+    return true;
     return getRandomInteger(totalChestAmount) === totalChestAmount;
 }
 
